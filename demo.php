@@ -39,7 +39,7 @@ $tree = new TreeOflife(isset($_GET['w']) ? $_GET['w'] : 650);
 </head>
 <body>
 <?php
-	echo $tree->debug(); 
+	echo $tree->debug();
 	echo $tree->htmlandcss->html;
 ?>
 </body>

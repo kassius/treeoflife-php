@@ -1,4 +1,6 @@
 treeoflife-php
 ==============
 
-Tree of Life PHP (HTML5)
+### PHP Class that generates a Qabbalistic Tree of Life using HTML5 and CSS
+
+
