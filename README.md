@@ -51,3 +51,10 @@ Then, to include the HTML elements of the tree, we can use
 ```php
 <?php echo $tree->htmlandcss->html; ?>
 ```
+
+## Documentation
+
+The documentation is still being prepared, but can be found on project Wiki pages
+
+https://github.com/kassius/treeoflife-php/wiki
+
