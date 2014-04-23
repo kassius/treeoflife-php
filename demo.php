@@ -5,9 +5,12 @@ include "tree.php";
 $tree = new TreeOflife(isset($_GET['w']) ? $_GET['w'] : 650);
 
 ?>
+<!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="UTF-8" />
+
 <?php echo $tree->htmlandcss->css; ?>
 
 <style>
@@ -39,7 +42,8 @@ $tree = new TreeOflife(isset($_GET['w']) ? $_GET['w'] : 650);
 </head>
 <body>
 <?php
-	echo $tree->debug();
+	//echo $tree->debug();
+
 	echo $tree->htmlandcss->html;
 ?>
 </body>

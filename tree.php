@@ -1,9 +1,4 @@
 <?php
-//mb_internal_encoding("UTF-8");
-//mb_http_output( "UTF-8" );
-
-ini_set('default_charset', 'UTF-8');
-header('Content-Type: text/html; charset=UTF-8');
 
 error_reporting(E_ALL);
 /*
@@ -44,6 +39,18 @@ class HandleHTMLandCSS
 	public $frame_width;
 	public $frame_height;
 
+	public $sphere_width;
+	public $sphere_height;
+
+	public $path_height;
+	public $path_line_height;
+
+	public $middleword_width;
+	public $middleword_height;
+
+	public $topword_letter_height;
+	public $bottomword_letter_height;
+
 	public function __construct($frame_width, $frame_height)
 	{
 		$this->frame_width = $frame_width;
@@ -59,34 +66,20 @@ class HandleHTMLandCSS
 
 	public function setSphere($sphere, $width, $height, $top, $position)
 	{
+		$this->sphere_width = $width;
+		$this->sphere_height = $height;
+
 		$this->spheres_data["{$sphere}"]['css'] =<<<EOT
 .sphere-{$sphere}
 {
-	width: {$width}px;
-	height: {$height}px;
-
-	text-align: center;
-	border-radius: 100%;
-	border: 1px solid #333;
-
-	position: absolute;
-
-	background-color: #fff;
-	z-index: 1;
-
 	top: {$top}px;
 	{$position}
-
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-ms-box-sizing:border-box;
-	box-sizing:border-box;
 }
 
 EOT;
 
 		$this->spheres_data["{$sphere}"]['html'] =<<<EOT
-<div class="sphere-{$sphere} sphere-aux-{$sphere} spheres"></div>
+<div class="sphere-{$sphere} spheres-commom sphere-aux-{$sphere} spheres"></div>
 
 EOT;
 	}
@@ -95,20 +88,13 @@ EOT;
 	{
 		$path_label = (isset($this->paths_labels_data["{$path}"]['label']) ? ($this->paths_labels_data["{$path}"]['label']) : "");
 
+		$this->path_height = $height;
+		$this->path_line_height = $height;
+
 		$this->paths_data["{$path}"]['css'] = <<<EOT
 .path-{$path}
 {
 	width: {$width}px;
-	height: {$height}px;
-	line-height: {$height}px;
-	border: 1px solid #333;
-
-	position: absolute;
-
-	text-align: center;
-	vertical-align: middle;
-
-	background-color: #fff;
 
 	-webkit-transform: rotate({$rotate}deg);
 	-moz-transform: rotate({$rotate}deg);
@@ -117,17 +103,12 @@ EOT;
 
 	top: {$top}px;
 	{$position}
-
-	-webkit-box-sizing:border-box;
-	-moz-box-sizing:border-box;
-	-ms-box-sizing:border-box;
-	box-sizing:border-box;
 }
 
 EOT;
 
 		$this->paths_data["{$path}"]['html'] = <<<EOT
-<div class="path-{$path} paths">{$path_label}</div>
+<div class="path-{$path} paths-commom paths">{$path_label}</div>
 
 EOT;
 	}
@@ -139,18 +120,12 @@ EOT;
 
 	public function setTopWord($sphere, $letter_num, $height, $top, $position, $rotate, $letter)
 	{
+		$this->topword_letter_height = $height;
 		$this->topwords_data["{$sphere}"]['css'] .= <<<EOT
 .word-letter-{$sphere}-{$letter_num}
 {
-	height: {$height};
 	top: {$top}
 	{$position}
-
-	position: absolute;
-	z-index: 2;
-	width: 0px;
-
-	font-family: monospace;
 
 	-webkit-transform: rotate({$rotate}deg);
 	-webkit-transform-origin: bottom center;
@@ -160,53 +135,38 @@ EOT;
 	-o-transform-origin: bottom center;
 	transform: rotate({$rotate}deg);
 	transform-origin: bottom center;
-
 }
 
 EOT;
 
-		$this->topwords_data["{$sphere}"]['html'] .= "<div class=\"word-letter-{$sphere}-{$letter_num} sphere-aux-{$sphere} top-words words\">{$letter}</div>\n";
+		$this->topwords_data["{$sphere}"]['html'] .= "<div class=\"word-letter-{$sphere}-{$letter_num} topword-letters-commom sphere-aux-{$sphere} top-words words\">{$letter}</div>\n";
 	}
 
 	public function setMiddleWord($sphere, $word, $width, $height, $top, $position)
 	{
+		$this->middleword_width = $width;
+		$this->middleword_height = $height;
+
 		$this->middlewords_data["{$sphere}"]['css'] .= <<<EOT
 .middle-word-{$sphere}
 {
-	width: {$width}px;
-	height: {$height}px;
-
 	top: {$top}
 	{$position}
-
-	position: absolute;
-
-	z-index: 3;
-
-	text-align: center;
-
-	font-size: {$height}px;
 }
 
 EOT;
 
-		$this->middlewords_data["{$sphere}"]['html'] .= "<div class=\"middle-word-{$sphere} sphere-aux-{$sphere} middle-words words\">{$word}</div>\n";
+		$this->middlewords_data["{$sphere}"]['html'] .= "<div class=\"middle-word-{$sphere} middle-words-commom sphere-aux-{$sphere} middle-words words\">{$word}</div>\n";
 	}
 
 	public function setBottomWord($sphere, $letter_num, $height, $top, $position, $rotate, $letter)
 	{
+		$this->bottomword_letter_height = $height;
 		$this->bottomwords_data["{$sphere}"]['css'] .= <<<EOT
 .bottomword-letter-{$sphere}-{$letter_num}
 {
-	height: {$height};
 	top: {$top}
 	{$position}
-
-	position: absolute;
-	z-index: 2;
-	width: 0px;
-
-	font-family: monospace;
 
 	-webkit-transform: rotate({$rotate}deg);
 	-webkit-transform-origin: top center;
@@ -221,7 +181,7 @@ EOT;
 
 EOT;
 
-		$this->bottomwords_data["{$sphere}"]['html'] .= "<div class=\"bottomword-letter-{$sphere}-{$letter_num} sphere-aux-{$sphere} bottom-words words\"><div style=\"position:absolute;bottom:0;\">{$letter}</div></div>\n";
+		$this->bottomwords_data["{$sphere}"]['html'] .= "<div class=\"bottomword-letter-{$sphere}-{$letter_num} bottomword-letters-commom sphere-aux-{$sphere} bottom-words words\"><div style=\"position:absolute;bottom:0;\">{$letter}</div></div>\n";
 	}
 
 	public function generateCss()
@@ -252,8 +212,8 @@ EOT;
 .frame
 {
 	width: {$this->frame_width}px;
-	height: {$this->frame_height}px;
-	margin: 100px;
+	min-height: {$this->frame_height}px;
+	margin: 10px;
 	border: 1px solid #ccc;
 	position: relative;
 
@@ -263,10 +223,85 @@ EOT;
 	box-sizing:border-box;
 }
 
+.spheres-commom
+{
+	width: {$this->sphere_width}px;
+	height: {$this->sphere_height}px;
+
+	text-align: center;
+	border-radius: 100%;
+	border: 1px solid #333;
+
+	position: absolute;
+
+	background-color: #fff;
+	z-index: 1;
+
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+.paths-commom
+{
+	height: {$this->path_height}px;
+	line-height: {$this->path_line_height}px;
+	border: 1px solid #333;
+
+	position: absolute;
+
+	text-align: center;
+	vertical-align: middle;
+
+	background-color: #fff;
+
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	-ms-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+.middle-words-commom
+{
+	width: {$this->middleword_width}px;
+	height: {$this->middleword_height}px;
+
+	position: absolute;
+
+	z-index: 3;
+
+	text-align: center;
+
+	font-size: {$this->middleword_height}px;
+}
+
+.topword-letters-commom
+{
+	height: {$this->topword_letter_height}px;
+
+	position: absolute;
+	z-index: 2;
+	width: 0px;
+
+	font-family: monospace;
+}
+
+.bottomword-letters-commom
+{
+	height: {$this->bottomword_letter_height}px;
+
+	position: absolute;
+	z-index: 2;
+	width: 0px;
+
+	font-family: monospace;
+}
+
 {$spheres_css}
 {$paths_css}
-{$topwords_css}
 {$middlewords_css}
+{$topwords_css}
 {$bottomwords_css}
 </style>
 
@@ -300,8 +335,8 @@ EOT;
 <div class="frame">
 {$spheres_html}
 {$paths_html}
-{$topwords_html}
 {$middlewords_html}
+{$topwords_html}
 {$bottomwords_html}
 </div>
 
@@ -338,7 +373,7 @@ class TreeOfLife
 
 	public $htmlandcss;
 
-	public function __construct($frame_width)
+	public function __construct($frame_width = 650)
 	{
 		$this->frame_width = $frame_width;
 		$this->frame_center = $this->frame_width / 2;
@@ -353,7 +388,7 @@ class TreeOfLife
 		$this->degree = 30;
 		$this->line_height = $this->getOpposite($this->degree, $this->math_frame_center);
 
-		$this->frame_height = $this->line_height * 9;
+		$this->frame_height = ($this->line_height * 9)+9;
 
 		$this->word_margin = $this->sphere_radius * 0.114754;
 
@@ -479,15 +514,15 @@ class TreeOfLife
 			switch($this->spheres["{$i}"]['column'])
 			{
 				case "center":
-					$position="left: " . ($this->frame_center - $this->sphere_radius) . ";";
+					$position="left: " . ($this->frame_center - $this->sphere_radius) . "px;";
 				break;
 
 				case "right":
-					$position="right: 0;";
+					$position="right: 0px;";
 				break;
 
 				case "left":
-					$position="left: 0;";
+					$position="left: 0px;";
 				break;
 			}
 
@@ -535,19 +570,19 @@ class TreeOfLife
 			{
 				case "right":
 					$position_algo = ( ($same_pillar) ? ((-$width/2)+$this->sphere_radius) : ($this->sphere_radius-(($width/2)-($this->math_frame_center/2))) );
-					$position = "right: {$position_algo};";
+					$position = "right: {$position_algo}px;";
 				break;
 
 				case "left":
 					$position_algo = ( ($same_pillar) ? ((-$width/2)+$this->sphere_radius) : ($this->sphere_radius-(($width/2)-($this->math_frame_center/2))) );
-					$position = "left: {$position_algo};";
+					$position = "left: {$position_algo}px;";
 				break;
 
 				case "center":
 					if(strcmp($this->paths["{$i}"]['rotate'], "none")!==0) $position_algo = $this->frame_center - ($width/2);
 					else $position_algo = $this->sphere_radius;
 
-					$position = "left: {$position_algo};";
+					$position = "left: {$position_algo}px;";
 				break;
 			}
 			//$top = (($line_distance_center * $this->line_height) - ($this->sphere_radius)); -- THIS WAS THE ORIGINAL, BUT NEEDS SOME MORE WORK
@@ -569,11 +604,11 @@ class TreeOfLife
 
 		$word_length = strlen($word);
 
-		$top = ((($this->spheres["{$sphere}"]['line']-1) * $this->line_height) + $this->word_margin).";";
+		$top = ((($this->spheres["{$sphere}"]['line']-1) * $this->line_height) + $this->word_margin)."px;";
 
-		if(strcmp($this->spheres["{$sphere}"]['column'], "center")===0) { $position="left: {$this->frame_center};"; }
-		else if(strcmp($this->spheres["{$sphere}"]['column'], "right")===0) { $position="right: {$this->sphere_radius};"; }
-		else if(strcmp($this->spheres["{$sphere}"]['column'], "left")===0) { $position="left: {$this->sphere_radius};"; }
+		if(strcmp($this->spheres["{$sphere}"]['column'], "center")===0) { $position="left: {$this->frame_center}px;"; }
+		else if(strcmp($this->spheres["{$sphere}"]['column'], "right")===0) { $position="right: {$this->sphere_radius}px;"; }
+		else if(strcmp($this->spheres["{$sphere}"]['column'], "left")===0) { $position="left: {$this->sphere_radius}px;"; }
 		else { $position=""; }
 
 		$rotate = 0;
@@ -605,20 +640,20 @@ class TreeOfLife
 		$this->htmlandcss->middlewords_data["{$sphere}"]['css'] = "";
 		$this->htmlandcss->middlewords_data["{$sphere}"]['html'] = "";
 
-		$top = (((($this->spheres["{$sphere}"]['line']-1) * $this->line_height)+$this->sphere_radius)-$this->middle_word_height/2).";";
+		$top = (((($this->spheres["{$sphere}"]['line']-1) * $this->line_height)+$this->sphere_radius)-$this->middle_word_height/2)."px;";
 
 		switch($this->spheres["{$sphere}"]['column'])
 		{
 			case "center":
-				$position="left: " . ($this->frame_center - $this->sphere_radius) . ";";
+				$position="left: " . ($this->frame_center - $this->sphere_radius) . "px;";
 			break;
 
 			case "right":
-				$position="right: 0;";
+				$position="right: 0px;";
 			break;
 
 			case "left":
-				$position="left: 0;";
+				$position="left: 0px;";
 			break;
 		}
 
@@ -632,11 +667,11 @@ class TreeOfLife
 
 		$word_length = strlen($word);
 
-		$top = ((($this->spheres["{$sphere}"]['line']-1) * $this->line_height) + $this->sphere_radius).";";
+		$top = ((($this->spheres["{$sphere}"]['line']-1) * $this->line_height) + $this->sphere_radius)."px;";
 
-		if(strcmp($this->spheres["{$sphere}"]['column'], "center")===0) { $position="left: {$this->frame_center};"; }
-		else if(strcmp($this->spheres["{$sphere}"]['column'], "right")===0) { $position="right: {$this->sphere_radius};"; }
-		else if(strcmp($this->spheres["{$sphere}"]['column'], "left")===0) { $position="left: {$this->sphere_radius};"; }
+		if(strcmp($this->spheres["{$sphere}"]['column'], "center")===0) { $position="left: {$this->frame_center}px;"; }
+		else if(strcmp($this->spheres["{$sphere}"]['column'], "right")===0) { $position="right: {$this->sphere_radius}px;"; }
+		else if(strcmp($this->spheres["{$sphere}"]['column'], "left")===0) { $position="left: {$this->sphere_radius}px;"; }
 		else { $position=""; }
 
 		$rotate = 0;
