@@ -9,15 +9,15 @@ Documentation is coming soon...
 
 *This documentation is still being made*
 
-### Including the class
+### 1st step: Including the class
 
 Include the file tree.php in your PHP project,
 
     <?php
-    include "tree.php";
+      include "tree.php";
     ?>
 
-### Creating the Object
+### 2nd step; Creating the Object
 
 Then create an object with
 
@@ -26,19 +26,19 @@ Then create an object with
       $tree = new TreeOflife($width);
     ?>
 
-Here, $width is the width of the Tree in pixels.
+Here, $width is the width of the Tree in pixels. If this value is supressed, it defaults to 650.
 
-### Then, outputting the tree
+### 3rd step, outputting the tree, CSS and HTML
 
-#### CSS
+#### 3.1: The CSS
 
-Inside the <head> of your html, you output the css, with
+Inside the `<head>` of your html, you output the css, with
 
     <?php echo $tree->htmlandcss->css; ?>
 
-It will inclyde the <style> tag
+It will inclyde the `<style>` tag
 
-#### HTML elements
+#### 3.2: The HTML elements
 
 Then, to include the HTML elements of the tree, we can use
 
