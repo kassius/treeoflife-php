@@ -490,17 +490,17 @@ class TreeOfLife
 		$this->setMiddleWord(10, "10");
 		$this->setMiddleWord(11, "11");
 
-		$this->setBottomWord(1, "Coroa");
-		$this->setBottomWord(2, "Sabedoria");
-		$this->setBottomWord(3, "Compreensao");
-		$this->setBottomWord(4, "Misericordia");
-		$this->setBottomWord(5, "Forca");
-		$this->setBottomWord(6, "Beleza");
-		$this->setBottomWord(7, "Vitoria");
-		$this->setBottomWord(8, "Esplendor");
-		$this->setBottomWord(9, "Fundamento");
-		$this->setBottomWord(10, "Reino");
-		$this->setBottomWord(11, "Conhecimento");
+		$this->setBottomWord(1, "The Crown");
+		$this->setBottomWord(2, "Wisdom");
+		$this->setBottomWord(3, "Understanding");
+		$this->setBottomWord(4, "Mercy");
+		$this->setBottomWord(5, "Strength");
+		$this->setBottomWord(6, "Beauty");
+		$this->setBottomWord(7, "Victory");
+		$this->setBottomWord(8, "Splendour");
+		$this->setBottomWord(9, "The Foundation");
+		$this->setBottomWord(10, "The Kingdom");
+		$this->setBottomWord(11, "Knowledge");
 
 		$this->generateCSSandHTML();
 	}
