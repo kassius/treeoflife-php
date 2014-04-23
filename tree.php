@@ -139,7 +139,7 @@ EOT;
 
 EOT;
 
-		$this->topwords_data["{$sphere}"]['html'] .= "<div class=\"word-letter-{$sphere}-{$letter_num} topword-letters-commom sphere-aux-{$sphere} top-words words\">{$letter}</div>\n";
+		$this->topwords_data["{$sphere}"]['html'] .= "<div class=\"word-letter-{$sphere}-{$letter_num} topword-letters-commom sphere-aux-{$sphere} top-words top-word-{$sphere} words\">{$letter}</div>\n";
 	}
 
 	public function setMiddleWord($sphere, $word, $width, $height, $top, $position)
@@ -181,7 +181,7 @@ EOT;
 
 EOT;
 
-		$this->bottomwords_data["{$sphere}"]['html'] .= "<div class=\"bottomword-letter-{$sphere}-{$letter_num} bottomword-letters-commom sphere-aux-{$sphere} bottom-words words\"><div style=\"position:absolute;bottom:0;\">{$letter}</div></div>\n";
+		$this->bottomwords_data["{$sphere}"]['html'] .= "<div class=\"bottomword-letter-{$sphere}-{$letter_num} bottomword-letters-commom sphere-aux-{$sphere} bottom-words bottom-word-{$sphere} words\"><div style=\"position:absolute;bottom:0;\">{$letter}</div></div>\n";
 	}
 
 	public function generateCss()
@@ -441,28 +441,28 @@ class TreeOfLife
 
 		$this->calcSpheres();
 
-		$this->setPathLabel(1, "0 &sdot; O Louco");
-		$this->setPathLabel(2, "I &sdot; O Magus");
-		$this->setPathLabel(3, "II &sdot; A Sacerdotisa");
-		$this->setPathLabel(4, "III &sdot; A Imperatriz");
-		$this->setPathLabel(5, "IV &sdot; O Imperador");
-		$this->setPathLabel(6, "V &sdot; O Hierofante");
-		$this->setPathLabel(7, "VI &sdot; Os Amantes");
-		$this->setPathLabel(8, "VII &sdot; O Veiculo");
-		$this->setPathLabel(9, "VIII &sdot; O Equilibrio");
-		$this->setPathLabel(10, "IX &sdot; O Eremita");
-		$this->setPathLabel(11, "X &sdot; A Roda");
-		$this->setPathLabel(12, "XI &sdot; A Luxuria");
-		$this->setPathLabel(13, "XII &sdot; O Pendurado");
-		$this->setPathLabel(14, "XIII &sdot; A Morte");
-		$this->setPathLabel(15, "XIV &sdot; A Arte");
-		$this->setPathLabel(16, "XV &sdot; O Diabo");
-		$this->setPathLabel(17, "XVI &sdot; A Torre");
-		$this->setPathLabel(18, "XVII &sdot; A Estrela");
-		$this->setPathLabel(19, "XVIII &sdot; A Lua");
-		$this->setPathLabel(20, "XIX &sdot; O Sol");
-		$this->setPathLabel(21, "XX &sdot; O Aeon");
-		$this->setPathLabel(22, "XXI &sdot; O Universo");
+		$this->setPathLabel(1, "0 &sdot; The Fool");
+		$this->setPathLabel(2, "I &sdot; The Magus");
+		$this->setPathLabel(3, "II &sdot; The Priestess");
+		$this->setPathLabel(4, "III &sdot; The Empress");
+		$this->setPathLabel(5, "IV &sdot; The Emperor");
+		$this->setPathLabel(6, "V &sdot; The Hierofant");
+		$this->setPathLabel(7, "VI &sdot; The Lovers");
+		$this->setPathLabel(8, "VII &sdot; The Chariot");
+		$this->setPathLabel(9, "VIII &sdot; Adjustment");
+		$this->setPathLabel(10, "IX &sdot; The Hermit");
+		$this->setPathLabel(11, "X &sdot; Fortune");
+		$this->setPathLabel(12, "XI &sdot; Lust");
+		$this->setPathLabel(13, "XII &sdot; The Hanged Man");
+		$this->setPathLabel(14, "XIII &sdot; Death");
+		$this->setPathLabel(15, "XIV &sdot; Art");
+		$this->setPathLabel(16, "XV &sdot; The Devil");
+		$this->setPathLabel(17, "XVI &sdot; The Tower");
+		$this->setPathLabel(18, "XVII &sdot; The Star");
+		$this->setPathLabel(19, "XVIII &sdot; The Moon");
+		$this->setPathLabel(20, "XIX &sdot; The Sun");
+		$this->setPathLabel(21, "XX &sdot; The Aeon");
+		$this->setPathLabel(22, "XXI &sdot; The Universe");
 
 		$this->calcPaths();
 
@@ -541,7 +541,6 @@ class TreeOfLife
 
 			$line_distance = $this->spheres[ $this->paths["{$i}"]['link_2'] ]['line'] - $this->spheres[ $this->paths["{$i}"]['link_1'] ]['line'];
 
-			// if $line_distance_center==0, $top is the height of the spheres; else, is the height of the half of the spheres
 			$line_distance_center =	(($this->spheres[ $this->paths["{$i}"]['link_2'] ]['line'] + $this->spheres[ $this->paths["{$i}"]['link_1'] ]['line'])/2);
 
 			$same_pillar = ( (strcmp($this->spheres[ $this->paths["{$i}"]['link_2'] ]['column'], $this->spheres[ $this->paths["{$i}"]['link_1'] ]['column'])===0) ?	true : false );
@@ -585,7 +584,7 @@ class TreeOfLife
 					$position = "left: {$position_algo}px;";
 				break;
 			}
-			//$top = (($line_distance_center * $this->line_height) - ($this->sphere_radius)); -- THIS WAS THE ORIGINAL, BUT NEEDS SOME MORE WORK
+
 			$top = ((($line_distance_center * $this->line_height)-($this->line_height/2))-$this->path_height/2);
 			$this->htmlandcss->setPath($i, $width, $height, $rotate, $top, $position);
 		}
@@ -718,7 +717,7 @@ class TreeOfLife
 		$this->htmlandcss->generateHtml();
 	}
 
-	public function debug()
+	/*public function debug()
 	{
 		return <<<EOT
 <div>math_frame_width: {$this->math_frame_width}</div>
@@ -727,6 +726,6 @@ class TreeOfLife
 <div>sphere_radius: {$this->sphere_radius}</div>
 <div>line_height: {$this->line_height}</div>
 EOT;
-	}
+	}*/
 }
 ?>
