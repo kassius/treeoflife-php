@@ -9,38 +9,45 @@ Documentation is coming soon...
 
 *This documentation is still being made*
 
-### 1st step: Including the class
+### 1st step: Including the Class File
 
 Include the file tree.php in your PHP project,
 
-    <?php
-      include "tree.php";
-    ?>
+```php
+<?php
+  include "tree.php";
+?>
+```
 
-### 2nd step; Creating the Object
+### 2nd step: Creating the Object
 
 Then create an object with
 
-    <?php
-      $width = 650;
-      $tree = new TreeOflife($width);
-    ?>
+```php
+<?php
+  $width = 650;
+  $tree = new TreeOflife($width);
+?>
+```
 
 Here, $width is the width of the Tree in pixels. If this value is supressed, it defaults to 650.
 
-### 3rd step, outputting the tree, CSS and HTML
+### 3rd step: Outputting the Tree; CSS and HTML!
 
 #### 3.1: The CSS
 
 Inside the `<head>` of your html, you output the css, with
 
-    <?php echo $tree->htmlandcss->css; ?>
+```php
+<?php echo $tree->htmlandcss->css; ?>
+```
 
-It will inclyde the `<style>` tag
+This will automatically include the `<style>` tag to the generated CSS.
 
 #### 3.2: The HTML elements
 
 Then, to include the HTML elements of the tree, we can use
 
-    echo $tree->htmlandcss->html;
-
+```php
+<?php echo $tree->htmlandcss->html; ?>
+```
