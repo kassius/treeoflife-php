@@ -2,7 +2,7 @@
 
 include "tree.php";
 
-$tree = new TreeOflife(isset($_GET['w']) ? $_GET['w'] : 650);
+$tree = new TreeOflife((isset($_GET['w']) && is_numeric($_GET['w']))? $_GET['w'] : 650);
 
 ?>
 <!DOCTYPE html>
